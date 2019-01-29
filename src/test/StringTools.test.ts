@@ -30,5 +30,8 @@ suite("Stringtools Tests", function () {
         assert.equal("sfgsdfgsdfg.g.ty.y.u.dasfasdf.", res);
         let res1 = StringTools.getVar("asdf asdfqewrrewt sfgsdfgsdfg.g.ty.y.u.dasfasdf");
         assert.equal(undefined, res1);
+        let res2 = StringTools.getVar(" res.sfx.");
+        res2 = StringTools.getVar(" res.sfx.");
+        assert.equal("res.sfx.", res2);
     });
 });

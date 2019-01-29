@@ -1,5 +1,4 @@
 export class StringTools {
-    private static re = new RegExp("[\\w\\.]*?\\.$", "g");
     static splitCunks(s: string, delimiter?: string): string[]{
         delimiter = delimiter || ".";
         return s.split(delimiter);
@@ -15,7 +14,8 @@ export class StringTools {
     }
 
     static getVar(str: string): string | null{
-        let match = this.re.exec(str);
+        let re = new RegExp("[\\w\\.]*?\\.$", "g");
+        let match = re.exec(str);
         if (!match){
             return null;
         }

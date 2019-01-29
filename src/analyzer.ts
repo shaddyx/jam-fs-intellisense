@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { FileTools } from './FileTools';
 import { StringTools } from './StringTools';
+import { ArrayTools } from './ArrayTools';
 export class Analyzer{
     files:vscode.Uri[] = [];
     splitted: string[] = [];
@@ -8,39 +9,49 @@ export class Analyzer{
 
     startup(){
        this.ft = new FileTools();
-       this.ft.startup((o) => this.analyze());
+       this.ft.startup((o) => this.updateFiles(o));
+    }
+
+    updateFiles(files: vscode.Uri[]){
+        this.files = files;
+        this.analyze();
     }
 
     analyze(){
+        console.log("Analyzing...");
         this.splitted = [];
         let mod = "/mod/";
         for (let k in this.files){
             let f = this.files[k];
             let right = StringTools.getRightPart(f.path, mod);
-            let path = f.path.split(mod).join("").split("/").join(".")
-            let chunks = path.split(".");
-            chunks.splice(chunks.length - 1, 1);
-            this.splitted.push(chunks.join("."));
-            console.log("Files changed: " + this.splitted);
+            //console.log("Files changed: " + right);
+            this.splitted.push(right);
         }
-    }
-    find(val: string):string[]{
-        let res:string[] = [];
-        for (let k in this.splitted){
-            if (this.splitted[k].indexOf(val)){
-                res.push(this.splitted[k]);
-            }
-        }
-        return res;
     }
     check(value: string): string[]{
-        if (!value.endsWith(".")){
+        value = value.trim();
+        console.log(`Line is: ${value}`);
+        let val = StringTools.getVar(value);
+        console.log(`variable is: ${val} for line ${value}`);
+        if (!val){
             return [];
         }
-        let vals = value.split(".");
-        if (vals.length < 2) return [];
-        let lastVal = vals[vals.length - 2];
-        console.log("searching for:" + lastVal);
-        return this.find(lastVal);
+        let splittedVal = val.split(".");
+        splittedVal = ArrayTools.rmLast(splittedVal);
+        let res = [];
+        console.log(`Splitted: ${this.splitted}`);
+        for (let k in this.splitted){
+            let fileSlashes = this.splitted[k];
+            let file = fileSlashes.split("/").join(".");
+            //console.log(`Checking: ${splittedVal} with ${file}`);
+            let line = StringTools.checkChunks(splittedVal, file.split("."));
+            if (line){
+                if (res.indexOf(line) === -1){
+                    res.push(line);
+                }
+            }
+        }
+        console.log(`Res is: ${res}`);
+        return res;
     }
 }
