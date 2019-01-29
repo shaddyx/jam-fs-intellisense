@@ -1,7 +1,7 @@
 {
-	"name": "jam-fs",
-	"displayName": "jam-fs",
-	"description": "",
+	"name": "jam-fs-intellisense",
+	"displayName": "jam-fs-intellisense",
+	"description": "Jam-fs autocompletion",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.30.0"
@@ -10,19 +10,9 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.helloWorld",
-		"onLanguage:javascript",
-		"onLanguage:plaintext"
+		"onLanguage:javascript"
 	],
 	"main": "./out/extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "extension.helloWorld",
-				"title": "Hello World"
-			}
-		]
-	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",
