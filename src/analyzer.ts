@@ -1,6 +1,5 @@
-import * as vscode from 'vscode';
 import * as path from 'path';
-import { timingSafeEqual } from 'crypto';
+import * as vscode from 'vscode';
 export class Analyzer{
     files:vscode.Uri[] = [];
     splitted: string[] = [];

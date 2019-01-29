@@ -1,7 +1,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import * as path from 'path';
 import { Analyzer } from './analyzer';
 
 // this method is called when your extension is activated
@@ -21,12 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
 				if (!res.length) {
 					return undefined;
 				}
-				return res.map(o => new vscode.CompletionItem(o, vscode.CompletionItemKind.Method));
-				// return [
-				// 	new vscode.CompletionItem('logg', vscode.CompletionItemKind.Method),
-				// 	new vscode.CompletionItem('warnn', vscode.CompletionItemKind.Method),
-				// 	new vscode.CompletionItem('errorr', vscode.CompletionItemKind.Method),
-				// ];
+				return res.map(o => new vscode.CompletionItem(o, vscode.CompletionItemKind.Field));
 			}
 		},
 		'.' // triggered whenever a '.' is being typed
