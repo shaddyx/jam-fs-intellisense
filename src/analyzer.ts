@@ -1,30 +1,22 @@
-import * as path from 'path';
 import * as vscode from 'vscode';
+import { FileTools } from './FileTools';
+import { StringTools } from './StringTools';
 export class Analyzer{
     files:vscode.Uri[] = [];
     splitted: string[] = [];
+    ft: FileTools | undefined = undefined;
+
     startup(){
-        let workspaceRoot = vscode.workspace.rootPath;
-        if (!workspaceRoot){
-            return;
-        }
-        let simplePattern = "mod/**/*";
-        let pattern = path.join(workspaceRoot, simplePattern);
-        let fileWatcher = vscode.workspace.createFileSystemWatcher(pattern);
-        fileWatcher.onDidChange(o => this.analyze);
-        console.log("Searching files in pattern: " + pattern);
-        vscode.workspace.findFiles(simplePattern, '**/node_modules/**', 10000).then(o=>{
-            this.files = o;
-            console.log(o);
-            this.analyze();
-        });
+       this.ft = new FileTools();
+       this.ft.startup((o) => this.analyze());
     }
+
     analyze(){
         this.splitted = [];
-        let mod = vscode.workspace.rootPath + "/mod/";
-        console.log("Mod path:" + mod);
+        let mod = "/mod/";
         for (let k in this.files){
             let f = this.files[k];
+            let right = StringTools.getRightPart(f.path, mod);
             let path = f.path.split(mod).join("").split("/").join(".")
             let chunks = path.split(".");
             chunks.splice(chunks.length - 1, 1);

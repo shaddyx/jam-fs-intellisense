@@ -22,4 +22,10 @@ export class StringTools {
         str = match[0];
         return str;
     }
+
+    static getRightPart(path: string, divider: string): string{
+        let chunks = path.split(divider);
+        return chunks[chunks.length - 1];
+    }
+
 }

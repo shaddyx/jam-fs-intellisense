@@ -12,19 +12,7 @@ import { StringTools } from '../StringTools';
 // import * as myExtension from '../extension';
 
 // Defines a Mocha test suite to group tests of similar kind together
-suite("Stringtools Tests", function () {
-
-    // Defines a Mocha unit test
-    test("Test splitter", function () {
-        // assert.equal(-1, [1, 2, 3].indexOf(5));
-        let res = StringTools.splitCunks("aaa.bbb.cccc");
-        assert.equal(3, res.length);
-    });
-    test("Test CheckChunks", function () {
-        let res = StringTools.checkChunks(["aaa", "bbb", "ccc"], ["aaa", "bbb", "ccc", "ddd"]);
-        assert.equal("ddd", res);
-    });
-
+suite("FileTools Tests", function () {
     test("Test GetVar", function () {
         let res = StringTools.getVar("asdf asdfqewrrewt sfgsdfgsdfg.g.ty.y.u.dasfasdf.");
         assert.equal("sfgsdfgsdfg.g.ty.y.u.dasfasdf.", res);
